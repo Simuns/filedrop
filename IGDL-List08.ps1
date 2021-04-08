@@ -1,16 +1,16 @@
 #sobl@tec.dk 10:41 23-11-2020
-
+#Author Oliver Black
 PowerShell.exe -windowstyle hidden {
 
 #Export objectclass=group  og (kolonner member,grouptype,name,whenchanged)
 csvde -f $env:TEMP\group-1.csv -r "(objectclass=group)" -l member,grouptype,name,whenchanged
 
 
-#But om på rækkefølge af kolonner (grouptype, name, member,whenchanged)
+#But om pï¿½ rï¿½kkefï¿½lge af kolonner (grouptype, name, member,whenchanged)
 (Import-CSV -Path $env:TEMP\group-1.csv ) | Select-Object -Property grouptype, name, member,whenchanged  | Export-CSV -Path $env:TEMP\group-2.csv
 
 
-#Søg/erstat   GruppeNr til GruppeType
+#Sï¿½g/erstat   GruppeNr til GruppeType
 ((Get-Content -path $env:TEMP\group-2.csv -Raw) -replace '-2147483640','Univesal' -replace '-2147483643','Local' -replace '-2147483644','Domain Local' -replace '-2147483646','Global' )     | Set-Content -Path $env:TEMP\group-3.csv
 
 
